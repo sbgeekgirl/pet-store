@@ -49,4 +49,11 @@ public class PetStoreService {
 		return petStoreDao.findById(petStoreId).orElseThrow(() -> new NoSuchElementException("A pet store with that ID cannot be found"));
 	}
 	
+	public PetStoreData updatePetStore(Long petStoreId, PetStoreData petStoreData) {
+		PetStore petStore = findPetStoreById(petStoreId);
+		copyPetStoreFields(petStore, petStoreData);
+		System.out.println(petStoreData);
+		return petStoreData;
+	}
+	
 }
