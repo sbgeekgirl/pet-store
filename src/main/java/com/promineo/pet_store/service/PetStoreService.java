@@ -140,7 +140,7 @@ public class PetStoreService {
 	}
 
 	
-	@Transactional
+	@Transactional(readOnly = false)
 	public PetStoreCustomer saveCustomer(Long petStoreId, PetStoreCustomer petStoreCustomer) {
 		PetStore petStore = findPetStoreById(petStoreId);
 		Long customerId = petStoreCustomer.getCustomerId();
@@ -188,5 +188,17 @@ public class PetStoreService {
 		}
 			
 		return customer;
+	}
+	
+	@Transactional(readOnly = false)
+	public void addCustomerToAnotherStore(Long storeId, Long customerId) {
+		Customer customer = customerDao.findById(customerId).orElseThrow(() -> 
+			new NoSuchElementException("Customer with that Id was not found"));
+		PetStore petStore = findPetStoreById(storeId);
+		customer.getPetStores().add(petStore);
+		petStore.getCustomers().add(customer);
+		
+		
+		
 	}
 }

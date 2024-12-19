@@ -80,6 +80,11 @@ public class PetStoreController {
 		return petStoreService.saveCustomer(petStoreId, petStoreCustomer);
 	}
 	
+	@PutMapping("/{petStoreId}/{customerId}")
+	public void addCustomerToAnotherStore(@PathVariable("petStoreId") Long petStoreId, @PathVariable("customerId") Long customerId) {
+		log.info("adding an existing customer to another store");
+		petStoreService.addCustomerToAnotherStore(petStoreId, customerId);
+	}
 }
 		
 	
